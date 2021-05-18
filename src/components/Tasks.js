@@ -1,74 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Task from "./Task.js";
 import Button from "./Button.js";
 import Form from "./Form.js";
 
-import tasks from "../tasks/tasks.json";
+import tasksData from "../tasks/tasks.json";
 
-console.log(tasks);
+const Tasks = () => {
+    
+    let [tasksList, setTasksList] = useState(tasksData);
+    const [visibleForm, setVisibleForm] = useState(false);
 
-class Tasks extends React.Component {
-
-    state = {
-        tasks: tasks,
-        showFormVar: false
-    }
-
-    addTask = (title, description) => {
+    const addTask = (values) => {
         const newTask = {
-            id: this.state.tasks.length+1,
-            title: title,
-            description: description,
+            id: tasksList.length+1,
+            title: values.title,
+            description: values.description,
             date: Date.now()
         };
-        this.setState({
-            tasks: [...this.state.tasks, newTask]
-        });
+        setTasksList([...tasksList,newTask]);
     }
 
-    deleteTask = (id) =>{
-        const filtredData = this.state.tasks.filter(item => item.id !== id);
-        this.setState({ tasks: filtredData  })
+    const deleteTask = (id) => {
+        const filtredData = tasksList.filter(item => item.id !== id);
+        setTasksList(filtredData);
 
     }
 
-    showForm = () => {
-        // console.log("Abriendo");
-        this.setState({ showFormVar: true })
+    const showForm = () => {
+        setVisibleForm(true);
+    }
+    const hideForm = () => {
+        setVisibleForm(false);
     }
 
-    hideForm = () => {
-        // console.log("Cerrando");
-        // console.log(this.state.showFormVar);
-        this.setState({ showFormVar: false });
-        // console.log(this.state.showFormVar); // TODO: Por lo que sea me cambia el valor,
-        // pero no me lo muestra aquí por consola
-    }
-
-    render() {
-        return (
-            <div>
+    return(
+        <div>
               
-                { this.state.tasks.map(task => 
-                    
-                    <Task task={task} key={task.id} deleteTask={this.deleteTask} />
-                    
-                )}
+            { tasksList.map(task => 
+                <Task task={task} key={task.id} deleteTask={deleteTask} />
+            )}
 
-                <Form 
-                    addTask={this.addTask} 
-                    showFormVar={this.state.showFormVar}
-                    hideForm={this.hideForm}
-                />
+            <Form 
+                addTask={addTask} 
+                visibleForm={visibleForm}
+                hideForm={hideForm}
+            />
 
-                <Button 
-                    showForm={this.showForm}
-                />
+            <Button 
+                showForm={showForm}
+            />
 
-            </div>
-        );
-    };
+        </div>
+    );
 
 }
 

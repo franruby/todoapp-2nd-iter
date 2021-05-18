@@ -15,9 +15,6 @@ const  App = () => {
         <main>
           <Tasks />
         </main>
-
-        
-
       </div>
     </div>
   );
