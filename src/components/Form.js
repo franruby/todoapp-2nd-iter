@@ -3,29 +3,16 @@ import { useFormik } from 'formik';
 
 const Form = (props) => {
     
-    // TODO: Meter Formik en el form
     const formik = useFormik({
         initialValues: {
             title: '',
             description: ''
         },
-        // onSubmit: props.addTask
         onSubmit: values => {
-            // props.addTask(JSON.stringify(values, null, 2));
             props.addTask(values);
             formik.resetForm();
-            // alert(JSON.stringify(values, null, 2));
-
           },
     });
-
-    // return (
-    //     <div>
-    //         {
-    //             console.log(formik.initialValues.title)
-    //         }
-    //     </div>
-    // );
 
     if (props.visibleForm) {
         return (
@@ -70,7 +57,8 @@ const Form = (props) => {
     }
     else{
         return (
-            <div style={{display: "none"}}></div> // TODO: Ver la manera de hacer esto + limpio
+            // TODO: Ver la manera de hacer esto + limpio
+            <div style={{display: "none"}}></div> 
         );
     }
 }

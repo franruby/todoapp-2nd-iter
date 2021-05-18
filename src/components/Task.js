@@ -13,14 +13,10 @@ const Task = (props) => {
 
     const deleteTask = () => {
         props.deleteTask(props.task.id);
-        // console.log(task.id);
     }
 
     return (
         <div className="task-container animate__animated animate__backInUp">
-            {/* {
-                console.log(props.deleteTask)
-            } */}
                 <h3 className="task-title">{props.task.title}</h3>
                 <p className="task-description">{props.task.description}</p>
                 <span className="task-date">
